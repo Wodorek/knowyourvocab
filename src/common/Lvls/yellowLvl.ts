@@ -11,7 +11,7 @@ const yellowLvl = [
   ['zostać', ['stay']],
   ['ubrania', ['clothes']],
   ['miękki', ['soft']],
-  ['jechać autem', ['drive a car']],
+  ['jechać autem', ['drive a car', 'drive']],
   ['fotel', ['armchair']],
   ['sprytny, bystry', ['clever']],
   ['zgadzać się', ['agree']],

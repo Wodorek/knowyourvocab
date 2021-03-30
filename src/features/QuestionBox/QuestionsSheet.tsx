@@ -27,17 +27,26 @@ const QuestionsSheet = () => {
     if (el && !focusRefs.current.includes(el)) focusRefs.current.push(el);
   };
 
-  const focusInput = (name: string) => {
-    let nextElement = 0;
-    const foundEl: HTMLInputElement | undefined = focusRefs.current.find(
-      (el: any) => {
-        return el.name === name;
-      }
-    );
-    if (foundEl) {
-      nextElement = focusRefs.current.indexOf(foundEl) + 1;
-      console.log(nextElement);
+  const getNextElement = (idx: number): HTMLInputElement => {
+    const nextItem = focusRefs.current[idx];
+    console.log(nextItem);
+    if (nextItem === undefined) {
+      return getNextElement(0);
     }
+    if (nextItem.disabled) {
+      return getNextElement(idx + 1);
+    }
+
+    return nextItem;
+  };
+
+  const focusInput = (name: string) => {
+    const foundElIdx = focusRefs.current.findIndex((el: HTMLInputElement) => {
+      return el.name === name;
+    });
+    const nextElement = getNextElement(foundElIdx + 1);
+
+    nextElement.focus();
   };
 
   useEffect(() => {
