@@ -1,0 +1,32 @@
+const greenLvl = [
+  ['kamienica', ['tenement house', 'tenement']],
+  ['zwinny', ['agile']],
+  [
+    'popierać kogoś',
+    ['back', 'support', 'to back somebody', 'to support somebody'],
+  ],
+  ['podkoszulek', ['undershirt', 'singlet']],
+  ['znaczący, ważny', ['important']],
+  ['montować', ['install', 'assemble']],
+  ['cecha', ['feature', 'characteristic', 'trait']],
+  ['niewystarczający', ['insufficient']],
+  ['aportować', ['fetch']],
+  ['trawnik', ['lawn', 'grass']],
+  ['podmiejski', ['suburban']],
+  ['zniechęcać', ['discourage']],
+  ['urządzenie domowe', ['home appliance']],
+  ['czujny', ['alert']],
+  ['zgłaszać, meldować', ['report']],
+  ['deska', ['board', 'plank']],
+  ['krzywy', ['crooked', 'warped', 'skewed']],
+  ['pochwalić', ['praise', 'commend']],
+  ['gęstość', ['density', 'thickness']],
+  ['odrzucać (ofertę)', ['reject']],
+  ['bocian', ['stork']],
+  ['pielęgnować', ['care', 'nurse']],
+  ['kołyska', ['cradle']],
+  ['wyróżniać się', ['stand out']],
+  ['obojczyk', ['collarbone']],
+];
+
+export default greenLvl;
