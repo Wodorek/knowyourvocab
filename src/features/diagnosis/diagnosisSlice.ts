@@ -3,27 +3,19 @@ import { createSlice } from '@reduxjs/toolkit';
 export const diagnosisSlice = createSlice({
   name: 'diagnosis',
   initialState: {
-    correct: 0,
-    stage: 4,
-    known: [] as string[],
-    unknown: [] as string[],
+    correct: [] as string[],
+    incorrect: [] as string[],
   },
   reducers: {
-    correctAnswer: (state) => {
-      state.correct += 1;
+    addCorrect: (state, action) => {
+      state.correct.push(action.payload);
     },
-    advanceStage: (state) => {
-      state.stage += 1;
-    },
-    addKnown: (state, action) => {
-      state.known.push(action.payload);
-    },
-    addUnknown: (state, action) => {
-      state.unknown.push(action.payload);
+    addIncorrect: (state, action) => {
+      state.incorrect.push(action.payload);
     },
   },
 });
 
-export const { correctAnswer, advanceStage } = diagnosisSlice.actions;
+export const { addCorrect, addIncorrect } = diagnosisSlice.actions;
 
 export default diagnosisSlice.reducer;

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
-import { correctAnswer } from '../diagnosis/diagnosisSlice';
+import { addCorrect, addIncorrect } from '../diagnosis/diagnosisSlice';
 
 interface IProps {
   name: string;
@@ -68,20 +68,27 @@ const QuestionBox: React.FC<IProps> = (props) => {
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
   const [done, setDone] = useState(false);
 
-  const validateQuestion = (event: any) => {
+  const preventPaste = (event: React.SyntheticEvent) => {
+    event.preventDefault();
+    alert('ale proszę nie oszukiwać :|');
+  };
+
+  const validateQuestion = (event: React.SyntheticEvent) => {
     event.preventDefault();
 
-    if (props.answers.includes(value)) {
+    if (props.answers.includes(value.toLowerCase())) {
       setIsCorrect(true);
-      dispatch(correctAnswer());
+      dispatch(addCorrect([props.name, value]));
     } else {
       setIsCorrect(false);
       setValue(props.answers[0]);
+      dispatch(addIncorrect([props.name, value]));
     }
 
     props.focusNext(props.name);
     setDone(true);
   };
+
   return (
     <form onSubmit={(event) => validateQuestion(event)}>
       <StContainer>
@@ -89,6 +96,7 @@ const QuestionBox: React.FC<IProps> = (props) => {
           {props.name}
         </StLabel>
         <StInput
+          onPaste={(event) => preventPaste(event)}
           ref={props.refer}
           autoComplete="off"
           ok={isCorrect}

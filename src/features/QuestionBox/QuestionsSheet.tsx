@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useCallback } from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
 import QuestionBox from './QuestionBox';
@@ -16,12 +16,15 @@ const StContainer = styled.div`
 `;
 
 const QuestionsSheet = () => {
-  const stage = useSelector((state: RootStateOrAny) => state.diagnosis.stage);
-
-  const [itemIdx, setItemIdx] = useState(0);
-
   const focusRefs = useRef<HTMLInputElement[]>([]);
   focusRefs.current = [];
+
+  const goodAnswers = useSelector(
+    (state: RootStateOrAny) => state.diagnosis.correct
+  );
+  const badAnswers = useSelector(
+    (state: RootStateOrAny) => state.diagnosis.incorrect
+  );
 
   const addToRefs = (el: HTMLInputElement) => {
     if (el && !focusRefs.current.includes(el)) focusRefs.current.push(el);
@@ -49,10 +52,24 @@ const QuestionsSheet = () => {
     nextElement.focus();
   };
 
+  const sendDiagnosisHandler = async () => {
+    await fetch('http://localhost:3030/students/postDiagnosis', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: 'michał',
+        dateSubmitted: new Date(),
+        goodAnswers,
+        badAnswers,
+      }),
+    });
+  };
+
   useEffect(() => {
-    console.log(focusRefs);
-    focusRefs.current[itemIdx].focus();
-  }, [itemIdx]);
+    focusRefs.current[0].focus();
+  }, []);
 
   const yellowQuestions = yellowLvl.map((question) => {
     return (
@@ -60,7 +77,7 @@ const QuestionsSheet = () => {
         focusNext={(name: string) => focusInput(name)}
         refer={addToRefs}
         correct={null}
-        disabled={stage >= 1 ? false : true}
+        disabled={false}
         key={`${question[0]}`}
         name={`${question[0]}`}
         color={theme.yellow}
@@ -75,7 +92,7 @@ const QuestionsSheet = () => {
         focusNext={(name: string) => focusInput(name)}
         refer={addToRefs}
         correct={null}
-        disabled={stage >= 2 ? false : true}
+        disabled={false}
         key={`${question[0]}`}
         name={`${question[0]}`}
         color={theme.orange}
@@ -89,7 +106,7 @@ const QuestionsSheet = () => {
         focusNext={(name: string) => focusInput(name)}
         refer={addToRefs}
         correct={null}
-        disabled={stage >= 3 ? false : true}
+        disabled={false}
         key={`${question[0]}`}
         name={`${question[0]}`}
         color={theme.green}
@@ -103,7 +120,7 @@ const QuestionsSheet = () => {
         focusNext={(name: string) => focusInput(name)}
         refer={addToRefs}
         correct={null}
-        disabled={stage >= 4 ? false : true}
+        disabled={false}
         key={`${question[0]}`}
         name={`${question[0]}`}
         color={theme.blue}
@@ -118,6 +135,7 @@ const QuestionsSheet = () => {
       {orangeQuestions}
       {greenQuestions}
       {blueQuestions}
+      <button onClick={sendDiagnosisHandler}>send</button>
     </StContainer>
   );
 };
