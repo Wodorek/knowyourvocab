@@ -60,7 +60,6 @@ const QuestionsSheet = () => {
       },
       body: JSON.stringify({
         name: 'michał',
-        dateSubmitted: new Date(),
         goodAnswers,
         badAnswers,
       }),
