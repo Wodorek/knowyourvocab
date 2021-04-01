@@ -73,7 +73,10 @@ const QuestionBox: React.FC<IProps> = (props) => {
     alert('ale proszę nie oszukiwać :|');
   };
 
-  const validateQuestion = (event: React.SyntheticEvent) => {
+  const validateQuestion = (event: React.KeyboardEvent) => {
+    if (event.key !== 'Enter') {
+      return;
+    }
     event.preventDefault();
 
     if (props.answers.includes(value.toLowerCase())) {
@@ -90,12 +93,13 @@ const QuestionBox: React.FC<IProps> = (props) => {
   };
 
   return (
-    <form onSubmit={(event) => validateQuestion(event)}>
+    <div>
       <StContainer>
         <StLabel color={props.color} htmlFor={props.name}>
           {props.name}
         </StLabel>
         <StInput
+          onKeyPress={(event) => validateQuestion(event)}
           onPaste={(event) => preventPaste(event)}
           ref={props.refer}
           autoComplete="off"
@@ -108,7 +112,7 @@ const QuestionBox: React.FC<IProps> = (props) => {
           name={props.name}
         />
       </StContainer>
-    </form>
+    </div>
   );
 };
 

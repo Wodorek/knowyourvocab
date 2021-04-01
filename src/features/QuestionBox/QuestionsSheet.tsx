@@ -7,7 +7,6 @@ import orangeLvl from '../../common/Lvls/orangeLvl';
 import greenLvl from '../../common/Lvls/greenLvl';
 import blueLvl from '../../common/Lvls/blueLvl';
 import theme from '../../common/themes/theme';
-import { RootStateOrAny, useSelector } from 'react-redux';
 
 const StContainer = styled.div`
   display: flex;
@@ -18,13 +17,6 @@ const StContainer = styled.div`
 const QuestionsSheet = () => {
   const focusRefs = useRef<HTMLInputElement[]>([]);
   focusRefs.current = [];
-
-  const goodAnswers = useSelector(
-    (state: RootStateOrAny) => state.diagnosis.correct
-  );
-  const badAnswers = useSelector(
-    (state: RootStateOrAny) => state.diagnosis.incorrect
-  );
 
   const addToRefs = (el: HTMLInputElement) => {
     if (el && !focusRefs.current.includes(el)) focusRefs.current.push(el);
@@ -50,20 +42,6 @@ const QuestionsSheet = () => {
     const nextElement = getNextElement(foundElIdx + 1);
 
     nextElement.focus();
-  };
-
-  const sendDiagnosisHandler = async () => {
-    await fetch('http://localhost:3030/students/postDiagnosis', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        name: 'michał',
-        goodAnswers,
-        badAnswers,
-      }),
-    });
   };
 
   useEffect(() => {
@@ -134,7 +112,6 @@ const QuestionsSheet = () => {
       {orangeQuestions}
       {greenQuestions}
       {blueQuestions}
-      <button onClick={sendDiagnosisHandler}>send</button>
     </StContainer>
   );
 };
