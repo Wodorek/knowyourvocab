@@ -1,4 +1,4 @@
-import React, { MutableRefObject, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
@@ -46,7 +46,6 @@ const StInput = styled.input`
       return 'DarkGrey';
     }
   }};
-  /* color: ${(props) => (props.disabled ? 'white' : 'black')}; */
   cursor: ${(props) => (props.disabled ? 'not-allowed' : 'auto')};
 `;
 

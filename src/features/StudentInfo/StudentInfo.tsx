@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import styled from 'styled-components';
-import Diagnosis from '../diagnosis/Diagnosis';
-import QuestionsSheet from '../QuestionBox/QuestionsSheet';
-import Answers from './Answers';
+import AnswersTable from '../AnswersTable/AnswersTable';
+import Header from '../Header/Header';
 
 interface IProps {
   name: string;
@@ -13,8 +12,14 @@ interface IProps {
 }
 
 const StContainer = styled.div`
+  margin-top: 3rem;
   display: flex;
-  gap: 5rem;
+  flex-direction: column;
+  justify-content: center;
+  width: calc(60rem + 14px);
+  @media (max-width: 974px) {
+    width: calc(40rem + 14px);
+  }
 `;
 
 const StudentInfo: React.FC<IProps> = (props) => {
@@ -49,10 +54,15 @@ const StudentInfo: React.FC<IProps> = (props) => {
   console.log(studentInfo);
 
   return (
-    <>
-      <Answers answers={props.badAnswers} />
-      <Answers answers={props.goodAnswers} />
-    </>
+    <StContainer>
+      <Header heading={`WYNIKI ${username}`} />
+      {studentInfo && (
+        <AnswersTable
+          goodAnswers={studentInfo.goodAnswers}
+          badAnswers={studentInfo.badAnswers}
+        />
+      )}
+    </StContainer>
   );
 };
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
 import QuestionBox from './QuestionBox';
@@ -55,7 +55,6 @@ const QuestionsSheet = () => {
 
   const focusInput = (name: string) => {
     if (!isOn) {
-      console.log('i co z tego');
       return;
     }
     const foundElIdx = focusRefs.current.findIndex((el: HTMLInputElement) => {
