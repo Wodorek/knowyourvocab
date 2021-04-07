@@ -7,7 +7,8 @@ interface IProps {
 }
 
 const StButton = styled.button`
-  width: 4rem;
+  width: auto;
+  font-size: 2rem;
 `;
 
 const Button: React.FC<IProps> = (props) => {

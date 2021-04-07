@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 import QuestionBox from './QuestionBox';
@@ -7,6 +7,7 @@ import { orangeLvl } from '../../common/Lvls/orangeLvl';
 import { greenLvl } from '../../common/Lvls/greenLvl';
 import { blueLvl } from '../../common/Lvls/blueLvl';
 import theme from '../../common/themes/theme';
+import { RootStateOrAny, useSelector } from 'react-redux';
 
 const StContainer = styled.div`
   display: flex;
@@ -18,37 +19,55 @@ const QuestionsSheet = () => {
   const focusRefs = useRef<HTMLInputElement[]>([]);
   focusRefs.current = [];
 
+  const isOn = useSelector((state: RootStateOrAny) => state.diagnosis.isOn);
+  const totalFinished = useSelector(
+    (state: RootStateOrAny) => state.diagnosis.totalFinished
+  );
+
   const lvls = [yellowLvl, orangeLvl, greenLvl, blueLvl];
 
   const addToRefs = (el: HTMLInputElement) => {
     if (el && !focusRefs.current.includes(el)) focusRefs.current.push(el);
   };
 
-  const getNextElement = (idx: number): HTMLInputElement => {
+  const getNextElement = (idx: number): HTMLInputElement | null => {
+    if (totalFinished > focusRefs.current.length - 2) {
+      return null;
+    }
+
     const nextItem = focusRefs.current[idx];
 
     if (nextItem === undefined) {
       return getNextElement(0);
     }
-    if (nextItem.disabled) {
+    if (nextItem.disabled && !isOn) {
       return getNextElement(idx + 1);
     }
 
     return nextItem;
   };
 
+  useEffect(() => {
+    if (isOn === true) {
+      focusRefs.current[0].focus();
+    }
+  }, [isOn]);
+
   const focusInput = (name: string) => {
+    if (!isOn) {
+      console.log('i co z tego');
+      return;
+    }
     const foundElIdx = focusRefs.current.findIndex((el: HTMLInputElement) => {
       return el.name === name;
     });
     const nextElement = getNextElement(foundElIdx + 1);
+    if (nextElement === null) {
+      return;
+    }
 
     nextElement.focus();
   };
-
-  useEffect(() => {
-    focusRefs.current[0].focus();
-  }, []);
 
   const colors = [' ', theme.yellow, theme.orange, theme.green, theme.blue];
   let i = 0;

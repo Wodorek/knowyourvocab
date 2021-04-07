@@ -48,7 +48,12 @@ const StudentInfo: React.FC<IProps> = (props) => {
 
   console.log(studentInfo);
 
-  return <Diagnosis />;
+  return (
+    <>
+      <Answers answers={props.badAnswers} />
+      <Answers answers={props.goodAnswers} />
+    </>
+  );
 };
 
 export default StudentInfo;

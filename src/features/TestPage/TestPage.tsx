@@ -22,6 +22,9 @@ const NameBox = styled.div`
 const TestPage = () => {
   const [name, setName] = useState('');
   const isOn = useSelector((state: RootStateOrAny) => state.diagnosis.isOn);
+  const isFinished = useSelector(
+    (state: RootStateOrAny) => state.diagnosis.isFinished
+  );
 
   const history = useHistory();
   const dispatch = useDispatch();
@@ -63,19 +66,24 @@ const TestPage = () => {
   return (
     <StContainer>
       <Diagnosis />
-      <NameBox>
-        <label htmlFor="initials">Inicjały</label>
-        <input
-          required={true}
-          name="initials"
-          onChange={(event) =>
-            setName((event.target as HTMLInputElement).value)
-          }
-          value={name}
-        />
-      </NameBox>
-      {isOn ? (
-        <Button onClick={(event) => sendDiagnosisHandler(event)}>Wyślij</Button>
+
+      {isOn || isFinished ? (
+        <>
+          <NameBox>
+            <label htmlFor="initials">Inicjały</label>
+            <input
+              required={true}
+              name="initials"
+              onChange={(event) =>
+                setName((event.target as HTMLInputElement).value)
+              }
+              value={name}
+            />
+          </NameBox>
+          <Button onClick={(event) => sendDiagnosisHandler(event)}>
+            Wyślij
+          </Button>
+        </>
       ) : (
         <Button onClick={(event) => startTestHandler(event)}>Start</Button>
       )}

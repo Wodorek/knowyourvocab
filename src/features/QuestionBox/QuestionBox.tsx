@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { MutableRefObject, useRef, useState } from 'react';
 import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
@@ -65,6 +65,9 @@ const QuestionBox: React.FC<IProps> = (props) => {
   const dispatch = useDispatch();
 
   const isOn = useSelector((state: RootStateOrAny) => state.diagnosis.isOn);
+  const isFinished = useSelector(
+    (state: RootStateOrAny) => state.diagnosis.isFinished
+  );
 
   const [value, setValue] = useState('');
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
@@ -75,39 +78,60 @@ const QuestionBox: React.FC<IProps> = (props) => {
     alert('ale proszę nie oszukiwać :|');
   };
 
-  const validateQuestion = (event: React.KeyboardEvent) => {
+  const validateQuestion = (inputValue: string) => {
+    if (props.answers.includes(inputValue.toLowerCase())) {
+      setIsCorrect(true);
+      dispatch(addCorrect([props.name, inputValue]));
+    } else {
+      setIsCorrect(false);
+      setValue(props.answers[0]);
+      dispatch(addIncorrect([props.name, inputValue]));
+    }
+
+    setDone(true);
+    props.focusNext(props.name);
+  };
+
+  const validateOnInput = (event: React.KeyboardEvent) => {
     if (event.key !== 'Enter') {
       return;
     }
 
     event.preventDefault();
 
-    if (props.answers.includes(value.toLowerCase())) {
-      setIsCorrect(true);
-      dispatch(addCorrect([props.name, value]));
-    } else {
-      setIsCorrect(false);
-      setValue(props.answers[0]);
-      dispatch(addIncorrect([props.name, value]));
-    }
+    validateQuestion((event.target as HTMLInputElement).value);
+  };
 
-    props.focusNext(props.name);
-    setDone(true);
+  let timer = useRef<number>();
+
+  const onFocusIn = (event: React.FocusEvent) => {
+    window.clearTimeout(timer.current);
+
+    timer.current = window.setTimeout(() => {
+      validateQuestion((event.target as HTMLInputElement).value);
+    }, 7000);
+  };
+
+  const onFocusOut = () => {
+    console.log('blurring');
+    window.clearTimeout(timer.current);
   };
 
   return (
     <div>
       <StContainer>
         <StLabel color={props.color} htmlFor={props.name}>
-          {isOn ? props.name : '---'}
+          {isOn || isFinished ? props.name : '---'}
         </StLabel>
         <StInput
-          onKeyPress={(event) => validateQuestion(event)}
+          onKeyPress={(event) => validateOnInput(event)}
           onPaste={(event) => preventPaste(event)}
+          onFocus={onFocusIn}
+          onBlur={onFocusOut}
           ref={props.refer}
           autoComplete="off"
           ok={isCorrect}
-          disabled={done || props.disabled}
+          disabled={!isOn || done}
           onChange={(event) =>
             setValue((event.target as HTMLInputElement).value)
           }
