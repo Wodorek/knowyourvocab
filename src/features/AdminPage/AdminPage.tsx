@@ -1,10 +1,26 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import StudentInfo from '../StudentInfo/StudentInfo';
 
 interface IStudent {
   name: string;
-  goodAnswers: string[];
-  badAnswers: string[];
+  _id: string;
+  dateSubmitted: Date;
 }
+
+const StContainer = styled.div`
+  margin: 2rem;
+  width: 60vw;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+`;
+
+const StLink = styled(Link)`
+  text-decoration: none;
+  font-size: 2rem;
+`;
 
 const AdminPage = () => {
   const [students, setStudents] = useState<IStudent[]>();
@@ -32,17 +48,24 @@ const AdminPage = () => {
     getStudentsData();
   }, []);
 
-  const content = students?.map((el) => {
-    return (
-      <div>
-        <p>{el.name}</p>
-        <p>{el.goodAnswers}</p>
-        <p>{el.badAnswers}</p>
-      </div>
-    );
-  });
+  console.log('totu');
+  let content;
+  if (students) {
+    content = students.map((el) => {
+      const date = new Date(el.dateSubmitted);
 
-  return <div>{content}</div>;
+      const displayDate = date.toLocaleDateString();
+      const time = date.toLocaleTimeString();
+
+      return (
+        <StLink key={el._id} to={`/admin/students/${el.name}`}>
+          {el.name}: {displayDate} {time}
+        </StLink>
+      );
+    });
+  }
+
+  return <StContainer>{content}</StContainer>;
 };
 
 export default AdminPage;

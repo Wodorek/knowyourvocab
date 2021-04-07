@@ -1,4 +1,4 @@
-const greenLvl = [
+export const greenLvl = [
   ['kamienica', ['tenement house', 'tenement']],
   ['zwinny', ['agile']],
   [
@@ -28,5 +28,3 @@ const greenLvl = [
   ['wyróżniać się', ['stand out']],
   ['obojczyk', ['collarbone']],
 ];
-
-export default greenLvl;

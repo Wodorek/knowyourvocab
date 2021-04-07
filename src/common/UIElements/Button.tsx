@@ -13,7 +13,7 @@ const StButton = styled.button`
 const Button: React.FC<IProps> = (props) => {
   return (
     <StButton type={props.type} onClick={props.onClick}>
-      send
+      {props.children}
     </StButton>
   );
 };

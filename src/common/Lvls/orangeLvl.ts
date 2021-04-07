@@ -1,4 +1,4 @@
-const orangeLvl = [
+export const orangeLvl = [
   ['naprawić, zamocować', ['fix']],
   ['ręcznik', ['towel']],
   ['rzadki', ['rare']],
@@ -36,4 +36,3 @@ const orangeLvl = [
     ['solve a problem', 'solve', 'take care', 'take care of a problem'],
   ],
 ];
-export default orangeLvl;

@@ -1,4 +1,4 @@
-const yellowLvl = [
+export const yellowLvl = [
   ['myśleć', ['think', 'to think']],
   ['ludzie', ['people']],
   ['dobry', ['good']],
@@ -30,5 +30,3 @@ const yellowLvl = [
   ['koc', ['blanket']],
   ['gorzki', ['bitter']],
 ];
-
-export default yellowLvl;

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 import { addCorrect, addIncorrect } from '../diagnosis/diagnosisSlice';
@@ -64,6 +64,8 @@ const StLabel = styled.label`
 const QuestionBox: React.FC<IProps> = (props) => {
   const dispatch = useDispatch();
 
+  const isOn = useSelector((state: RootStateOrAny) => state.diagnosis.isOn);
+
   const [value, setValue] = useState('');
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
   const [done, setDone] = useState(false);
@@ -77,6 +79,7 @@ const QuestionBox: React.FC<IProps> = (props) => {
     if (event.key !== 'Enter') {
       return;
     }
+
     event.preventDefault();
 
     if (props.answers.includes(value.toLowerCase())) {
@@ -96,7 +99,7 @@ const QuestionBox: React.FC<IProps> = (props) => {
     <div>
       <StContainer>
         <StLabel color={props.color} htmlFor={props.name}>
-          {props.name}
+          {isOn ? props.name : '---'}
         </StLabel>
         <StInput
           onKeyPress={(event) => validateQuestion(event)}

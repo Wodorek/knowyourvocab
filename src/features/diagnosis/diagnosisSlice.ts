@@ -5,6 +5,7 @@ export const diagnosisSlice = createSlice({
   initialState: {
     correct: [] as string[],
     incorrect: [] as string[],
+    isOn: false,
   },
   reducers: {
     addCorrect: (state, action) => {
@@ -13,9 +14,12 @@ export const diagnosisSlice = createSlice({
     addIncorrect: (state, action) => {
       state.incorrect.push(action.payload);
     },
+    startTest: (state) => {
+      state.isOn = true;
+    },
   },
 });
 
-export const { addCorrect, addIncorrect } = diagnosisSlice.actions;
+export const { addCorrect, addIncorrect, startTest } = diagnosisSlice.actions;
 
 export default diagnosisSlice.reducer;

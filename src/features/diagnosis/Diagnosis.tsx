@@ -17,7 +17,7 @@ const StContainer = styled.div`
 const Diagnosis = () => {
   return (
     <StContainer>
-      <Header />
+      <Header heading={'DIAGNOZA UCZNIA'} />
       <QuestionsSheet />
     </StContainer>
   );

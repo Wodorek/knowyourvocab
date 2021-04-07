@@ -1,4 +1,4 @@
-const blueLvl = [
+export const blueLvl = [
   ['szczery do bólu', ['brutally honest']],
   ['sumienny', ['conscientious', 'scrupulous']],
   ['chropowaty', ['rugged', 'scabrous']],
@@ -15,10 +15,8 @@ const blueLvl = [
   ['maczuga', ['club']],
   ['wzbogacać', ['enrich']],
   ['rozpuszczalnik', ['solvent']],
-  ['oburzać się', ['resebt', 'revolt']],
+  ['oburzać się', ['resent', 'revolt']],
   ['podwozie', ['chassis']],
   ['ulec', ['succumb', 'give in']],
   ['łom', ['crowbar']],
 ];
-
-export default blueLvl;

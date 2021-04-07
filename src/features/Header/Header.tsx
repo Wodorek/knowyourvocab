@@ -1,6 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
+interface IProps {
+  heading: string;
+}
+
 const StHeader = styled.h1`
   background: #dbeef3;
   display: flex;
@@ -14,8 +18,8 @@ const StHeader = styled.h1`
   }
 `;
 
-const Header = () => {
-  return <StHeader>DIAGNOZA UCZNIA</StHeader>;
+const Header: React.FC<IProps> = (props) => {
+  return <StHeader>{props.heading}</StHeader>;
 };
 
 export default Header;
