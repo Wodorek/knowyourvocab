@@ -30,11 +30,11 @@ const TestPage = () => {
   const dispatch = useDispatch();
 
   const goodAnswers = useSelector(
-    (state: RootStateOrAny) => state.diagnosis.correct
+    (state: RootStateOrAny) => state.questions.correctAnswers
   );
 
   const badAnswers = useSelector(
-    (state: RootStateOrAny) => state.diagnosis.incorrect
+    (state: RootStateOrAny) => state.questions.incorrectAnswers
   );
 
   const sendDiagnosisHandler = async (event: React.SyntheticEvent) => {

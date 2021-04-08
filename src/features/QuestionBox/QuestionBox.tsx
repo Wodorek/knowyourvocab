@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react';
 import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
+import { questionCorrect, questionIncorrect } from './questionsSlice';
 import { addCorrect, addIncorrect } from '../diagnosis/diagnosisSlice';
 
 interface IProps {
@@ -12,6 +13,7 @@ interface IProps {
   correct: boolean | null;
   refer: any;
   focusNext: Function;
+  lvl: string;
 }
 
 const StContainer = styled.div`
@@ -80,11 +82,23 @@ const QuestionBox: React.FC<IProps> = (props) => {
   const validateQuestion = (inputValue: string) => {
     if (props.answers.includes(inputValue.toLowerCase())) {
       setIsCorrect(true);
-      dispatch(addCorrect([props.name, inputValue]));
+      dispatch(
+        questionCorrect({
+          question: [props.name, inputValue],
+          lvl: props.lvl,
+        })
+      );
+      dispatch(addCorrect());
     } else {
       setIsCorrect(false);
       setValue(props.answers[0]);
-      dispatch(addIncorrect([props.name, inputValue]));
+      dispatch(addIncorrect());
+      dispatch(
+        questionIncorrect({
+          question: [props.name, inputValue],
+          lvl: props.lvl,
+        })
+      );
     }
 
     setDone(true);

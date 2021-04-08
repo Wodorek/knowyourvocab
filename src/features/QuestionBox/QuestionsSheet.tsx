@@ -68,20 +68,27 @@ const QuestionsSheet = () => {
     nextElement.focus();
   };
 
-  const colors = [' ', theme.yellow, theme.orange, theme.green, theme.blue];
+  const colors = [
+    { name: '', color: '' },
+    { name: 'yellow', color: theme.yellow },
+    { name: 'orange', color: theme.orange },
+    { name: 'green', color: theme.green },
+    { name: 'blue', color: theme.blue },
+  ];
   let i = 0;
   const content = lvls.map((lvl) => {
     i++;
     return lvl.map((question) => {
       return (
         <QuestionBox
+          lvl={colors[i].name}
           focusNext={(name: string) => focusInput(name)}
           refer={addToRefs}
           correct={null}
           disabled={false}
           key={`${question[0]}`}
           name={`${question[0]}`}
-          color={colors[i]}
+          color={colors[i].color}
           answers={question[1]}
         />
       );

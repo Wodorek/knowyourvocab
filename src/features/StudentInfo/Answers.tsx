@@ -16,19 +16,19 @@ const StParagraph = styled.p`
 `;
 
 const Answers: React.FC<IProps> = (props) => {
-  let content;
-  if (props.answers) {
-    content = props.answers.map((el) => {
-      return (
-        <StContainer key={`${el[0]}${el[1]}`}>
-          <StParagraph>{el[0]}</StParagraph>
-          <StParagraph>{el[1]}</StParagraph>
-        </StContainer>
-      );
-    });
-  }
+  // let content;
+  // if (props.answers) {
+  //   content = props.answers.map((el) => {
+  //     return (
+  //       <StContainer key={`${el[0]}${el[1]}`}>
+  //         <StParagraph>{el[0]}</StParagraph>
+  //         <StParagraph>{el[1]}</StParagraph>
+  //       </StContainer>
+  //     );
+  //   });
+  // }
 
-  return <div>{content}</div>;
+  return <div>niemaczegośtakiego</div>;
 };
 
 export default Answers;

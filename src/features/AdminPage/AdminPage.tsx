@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import StudentInfo from '../StudentInfo/StudentInfo';
 
 interface IStudent {
   name: string;
@@ -48,7 +47,6 @@ const AdminPage = () => {
     getStudentsData();
   }, []);
 
-  console.log('totu');
   let content;
   if (students) {
     content = students.map((el) => {

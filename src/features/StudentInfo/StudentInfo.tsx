@@ -1,13 +1,20 @@
 import React, { useEffect, useState } from 'react';
+// import { RootStateOrAny, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import styled from 'styled-components';
 import AnswersTable from '../AnswersTable/AnswersTable';
 import Header from '../Header/Header';
 
+interface Answers {
+  yellow: string[];
+  orange: string[];
+  green: string[];
+  blue: string[];
+}
 interface IProps {
   name: string;
-  goodAnswers: string[];
-  badAnswers: string[];
+  goodAnswers: Answers;
+  badAnswers: Answers;
   dateSubmitted: number;
 }
 
@@ -24,6 +31,11 @@ const StContainer = styled.div`
 
 const StudentInfo: React.FC<IProps> = (props) => {
   const [studentInfo, setStudentInfo] = useState<IProps>();
+
+  // const percentages = useSelector(
+  //   (state: RootStateOrAny) => state.questions.percentages
+  // );
+  // const totals = useSelector((state: RootStateOrAny) => state.questions.totals);
 
   let { username } = useParams<any>();
 

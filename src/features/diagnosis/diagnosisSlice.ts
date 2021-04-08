@@ -4,27 +4,25 @@ export const diagnosisSlice = createSlice({
   name: 'diagnosis',
   initialState: {
     totalFinished: 0,
+    totalIncorrect: 0,
     incorrectInARow: 0,
-    correct: [] as string[],
-    incorrect: [] as string[],
     isOn: false,
     isFinished: false,
   },
   reducers: {
-    addCorrect: (state, action) => {
-      state.correct.push(action.payload);
+    addCorrect: (state) => {
       state.totalFinished++;
       state.incorrectInARow = 0;
     },
-    addIncorrect: (state, action) => {
-      state.incorrect.push(action.payload);
+    addIncorrect: (state) => {
       state.totalFinished++;
+      state.totalIncorrect++;
       state.incorrectInARow++;
       if (state.incorrectInARow === 10) {
         state.isOn = false;
         state.isFinished = true;
       }
-      if (state.incorrect.length === 30) {
+      if (state.totalIncorrect === 30) {
         state.isOn = false;
         state.isFinished = true;
       }
