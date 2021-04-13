@@ -105,13 +105,13 @@ const QuestionBox: React.FC<IProps> = (props) => {
   };
 
   const validateOnInput = (event: React.KeyboardEvent) => {
+    console.log(event);
     if (event.key !== 'Enter') {
       return;
     }
     window.clearTimeout(timer.current);
     event.preventDefault();
-
-    validateQuestion((event.target as HTMLInputElement).value);
+    // validateQuestion((event.target as HTMLInputElement).value);
     if (!isFinished) {
       props.focusNext(props.name);
     }
@@ -119,7 +119,8 @@ const QuestionBox: React.FC<IProps> = (props) => {
 
   let timer = useRef<number>();
 
-  const onFocusIn = (event: React.FocusEvent) => {
+  const onFocusIn = (event: any) => {
+    console.log(event);
     window.clearTimeout(timer.current);
 
     if (isOn) {
@@ -128,14 +129,17 @@ const QuestionBox: React.FC<IProps> = (props) => {
         if (!isFinished) {
           props.focusNext(props.name);
         }
-      }, 10000);
+      }, 100000000);
     }
   };
 
-  const onFocusOut = (event: React.FocusEvent) => {
-    console.log('blurring');
+  const onFocusOut = (event: any) => {
+    if (event.relatedTarget === null && !isFinished) {
+      props.focusNext(props.name);
+    }
     window.clearTimeout(timer.current);
     validateQuestion((event.target as HTMLInputElement).value);
+    console.log(event);
   };
 
   useEffect(() => {
