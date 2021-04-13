@@ -45,8 +45,6 @@ const StudentInfo: React.FC<IProps> = (props) => {
 
   let { username } = useParams<any>();
 
-  console.log(username);
-
   useEffect(() => {
     const getOneStudent = async () => {
       try {
@@ -68,8 +66,6 @@ const StudentInfo: React.FC<IProps> = (props) => {
     };
     getOneStudent();
   }, [username]);
-
-  console.log(studentInfo);
 
   let info;
   if (studentInfo) {

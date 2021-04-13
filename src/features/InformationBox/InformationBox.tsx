@@ -1,6 +1,5 @@
 import React from 'react';
 import { RootStateOrAny, useSelector } from 'react-redux';
-import styled from 'styled-components';
 
 interface IProps {
   color: string;

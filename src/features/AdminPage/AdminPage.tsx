@@ -37,8 +37,6 @@ const AdminPage = () => {
 
         const responseData = await response.json();
 
-        console.log(responseData);
-
         setStudents(responseData.students);
       } catch (error) {
         throw new Error(error);

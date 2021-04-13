@@ -32,9 +32,9 @@ const QuestionsSheet = () => {
   };
 
   const getNextElement = (idx: number): HTMLInputElement | null => {
-    if (idx === null) {
-      console.log('tso');
-    }
+    // if (idx === null) {
+    //   console.log('tso');
+    // }
     //if all questions are done and disabled, return null
     if (totalFinished > focusRefs.current.length - 2) {
       return null;
@@ -56,7 +56,6 @@ const QuestionsSheet = () => {
     return nextItem;
   };
 
-  console.log('disabled');
   const focusInput = (name: string) => {
     //find current element index
     const foundElIdx = focusRefs.current.findIndex((el: HTMLInputElement) => {

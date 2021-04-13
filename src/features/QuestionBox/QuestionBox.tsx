@@ -105,7 +105,6 @@ const QuestionBox: React.FC<IProps> = (props) => {
   };
 
   const validateOnInput = (event: React.KeyboardEvent) => {
-    console.log(event);
     if (event.key !== 'Enter') {
       return;
     }
@@ -120,7 +119,6 @@ const QuestionBox: React.FC<IProps> = (props) => {
   let timer = useRef<number>();
 
   const onFocusIn = (event: any) => {
-    console.log(event);
     window.clearTimeout(timer.current);
 
     if (isOn) {
@@ -139,7 +137,6 @@ const QuestionBox: React.FC<IProps> = (props) => {
     }
     window.clearTimeout(timer.current);
     validateQuestion((event.target as HTMLInputElement).value);
-    console.log(event);
   };
 
   useEffect(() => {
