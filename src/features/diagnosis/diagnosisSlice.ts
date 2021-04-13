@@ -26,13 +26,25 @@ export const diagnosisSlice = createSlice({
         state.isOn = false;
         state.isFinished = true;
       }
+      if (state.totalFinished === 100) {
+        state.isOn = false;
+      }
     },
     startTest: (state) => {
       state.isOn = true;
     },
+    endTest: (state) => {
+      state.isOn = false;
+      state.isFinished = true;
+    },
   },
 });
 
-export const { addCorrect, addIncorrect, startTest } = diagnosisSlice.actions;
+export const {
+  addCorrect,
+  addIncorrect,
+  startTest,
+  endTest,
+} = diagnosisSlice.actions;
 
 export default diagnosisSlice.reducer;

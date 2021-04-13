@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import { calculate } from './answersSlice';
+import theme from '../../common/themes/theme';
+import { calculate, changeToCorrect, changeToIncorrect } from './answersSlice';
 
 interface IProps {
   question: string;
@@ -27,7 +28,13 @@ const StQuestion = styled.div`
   width: 10rem;
   font-weight: bold;
   height: inherit;
-  background: ${(props) => props.color};
+  background: ${(props) => {
+    if (props.color) {
+      const idx = props.color as keyof typeof theme;
+      return theme[idx];
+    }
+  }};
+  user-select: none;
 `;
 
 const StAnswer = styled.div`
@@ -40,6 +47,7 @@ const StAnswer = styled.div`
   height: inherit;
   width: 10rem;
   background: ${(props) => (props.ok ? 'chartreuse' : 'orangeRed')};
+  user-select: none;
 `;
 
 const AnswerBox: React.FC<IProps> = (props) => {
@@ -49,15 +57,21 @@ const AnswerBox: React.FC<IProps> = (props) => {
 
   const changeQuestionStatus = () => {
     setOk((prevOk) => !prevOk);
-    dispatch(calculate({ color: props.color }));
+
+    if (ok) {
+      dispatch(changeToIncorrect(props.color));
+    }
+    if (!ok) {
+      dispatch(changeToCorrect(props.color));
+    }
+
+    dispatch(calculate(props.color));
   };
 
   return (
-    <StContainer>
+    <StContainer onClick={changeQuestionStatus}>
       <StQuestion color={props.color}>{props.question}</StQuestion>
-      <StAnswer onClick={changeQuestionStatus} ok={ok}>
-        {props.answer}
-      </StAnswer>
+      <StAnswer ok={ok}>{props.answer}</StAnswer>
     </StContainer>
   );
 };

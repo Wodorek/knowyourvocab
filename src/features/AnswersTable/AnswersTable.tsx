@@ -1,6 +1,8 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import AnswerBox from './AnswerBox';
+import { setInitialValues } from '../AnswersTable/answersSlice';
 
 interface Answers {
   yellow: string[];
@@ -21,6 +23,8 @@ const StContainer = styled.div`
 `;
 
 const AnswersTable: React.FC<IProps> = (props) => {
+  const dispatch = useDispatch();
+
   const [goodAnswersNum, setGoodAnswersNum] = useState({
     yellow: 0,
     orange: 0,
@@ -57,8 +61,11 @@ const AnswersTable: React.FC<IProps> = (props) => {
 
   const goodAnswers = goodIterable.map((key) => {
     const idx: keyof typeof props.goodAnswers = key as keyof Answers;
+    let i = 0;
     return props.goodAnswers[idx].map((el) => {
-      goodAnswersNumber[idx]++;
+      i++;
+
+      goodAnswersNumber[idx] = i;
       return (
         <AnswerBox
           key={el[0]}
@@ -75,7 +82,9 @@ const AnswersTable: React.FC<IProps> = (props) => {
     setGoodAnswersNum(goodAnswersNumber);
   }, [goodAnswersNumber]);
 
-  console.log(goodAnswersNum);
+  useEffect(() => {
+    dispatch(setInitialValues(goodAnswersNum));
+  }, [dispatch, goodAnswersNum]);
 
   return (
     <StContainer>

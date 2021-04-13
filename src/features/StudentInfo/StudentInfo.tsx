@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-// import { RootStateOrAny, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import styled from 'styled-components';
 import AnswersTable from '../AnswersTable/AnswersTable';
 import Header from '../Header/Header';
+import InformationBox from '../InformationBox/InformationBox';
+import SuggestedLvl from '../SuggestedLvl/SuggestedLvl';
 
 interface Answers {
   yellow: string[];
@@ -27,6 +28,11 @@ const StContainer = styled.div`
   @media (max-width: 974px) {
     width: calc(40rem + 14px);
   }
+`;
+
+const StInfo = styled.div`
+  display: flex;
+  gap: 2rem;
 `;
 
 const StudentInfo: React.FC<IProps> = (props) => {
@@ -65,14 +71,25 @@ const StudentInfo: React.FC<IProps> = (props) => {
 
   console.log(studentInfo);
 
+  let info;
+  if (studentInfo) {
+    info = Object.keys(studentInfo.badAnswers).map((el) => {
+      return <InformationBox key={el} color={el} />;
+    });
+  }
+
   return (
     <StContainer>
       <Header heading={`WYNIKI ${username}`} />
       {studentInfo && (
-        <AnswersTable
-          goodAnswers={studentInfo.goodAnswers}
-          badAnswers={studentInfo.badAnswers}
-        />
+        <>
+          <AnswersTable
+            goodAnswers={studentInfo.goodAnswers}
+            badAnswers={studentInfo.badAnswers}
+          />
+          <StInfo>{info}</StInfo>
+          <SuggestedLvl />
+        </>
       )}
     </StContainer>
   );

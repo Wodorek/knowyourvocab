@@ -20,6 +20,7 @@ const QuestionsSheet = () => {
   focusRefs.current = [];
 
   const isOn = useSelector((state: RootStateOrAny) => state.diagnosis.isOn);
+
   const totalFinished = useSelector(
     (state: RootStateOrAny) => state.diagnosis.totalFinished
   );
@@ -31,20 +32,46 @@ const QuestionsSheet = () => {
   };
 
   const getNextElement = (idx: number): HTMLInputElement | null => {
+    if (idx === null) {
+      console.log('tso');
+    }
+    //if all questions are done and disabled, return null
     if (totalFinished > focusRefs.current.length - 2) {
       return null;
     }
 
     const nextItem = focusRefs.current[idx];
 
+    //if we are at the last element in focus refs, go back to start
     if (nextItem === undefined) {
       return getNextElement(0);
     }
-    if (nextItem.disabled && !isOn) {
+
+    //if the input is disabled, try focusing on the next one
+    //this one seems to be the source of the infinite loop
+    if (nextItem.disabled && isOn) {
       return getNextElement(idx + 1);
     }
 
     return nextItem;
+  };
+
+  console.log('disabled');
+  const focusInput = (name: string) => {
+    //find current element index
+    const foundElIdx = focusRefs.current.findIndex((el: HTMLInputElement) => {
+      return el.name === name;
+    });
+
+    //get next element
+    const nextElement = getNextElement(foundElIdx + 1);
+
+    //TS check
+    if (nextElement === null) {
+      return;
+    }
+
+    nextElement.focus();
   };
 
   useEffect(() => {
@@ -52,21 +79,6 @@ const QuestionsSheet = () => {
       focusRefs.current[0].focus();
     }
   }, [isOn]);
-
-  const focusInput = (name: string) => {
-    if (!isOn) {
-      return;
-    }
-    const foundElIdx = focusRefs.current.findIndex((el: HTMLInputElement) => {
-      return el.name === name;
-    });
-    const nextElement = getNextElement(foundElIdx + 1);
-    if (nextElement === null) {
-      return;
-    }
-
-    nextElement.focus();
-  };
 
   const colors = [
     { name: '', color: '' },

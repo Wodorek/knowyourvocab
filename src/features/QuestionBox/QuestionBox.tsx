@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
@@ -102,17 +102,19 @@ const QuestionBox: React.FC<IProps> = (props) => {
     }
 
     setDone(true);
-    props.focusNext(props.name);
   };
 
   const validateOnInput = (event: React.KeyboardEvent) => {
     if (event.key !== 'Enter') {
       return;
     }
-
+    window.clearTimeout(timer.current);
     event.preventDefault();
 
     validateQuestion((event.target as HTMLInputElement).value);
+    if (!isFinished) {
+      props.focusNext(props.name);
+    }
   };
 
   let timer = useRef<number>();
@@ -120,15 +122,25 @@ const QuestionBox: React.FC<IProps> = (props) => {
   const onFocusIn = (event: React.FocusEvent) => {
     window.clearTimeout(timer.current);
 
-    timer.current = window.setTimeout(() => {
-      validateQuestion((event.target as HTMLInputElement).value);
-    }, 7000);
+    if (isOn) {
+      timer.current = window.setTimeout(() => {
+        validateQuestion((event.target as HTMLInputElement).value);
+        if (!isFinished) {
+          props.focusNext(props.name);
+        }
+      }, 10000);
+    }
   };
 
-  const onFocusOut = () => {
+  const onFocusOut = (event: React.FocusEvent) => {
     console.log('blurring');
     window.clearTimeout(timer.current);
+    validateQuestion((event.target as HTMLInputElement).value);
   };
+
+  useEffect(() => {
+    window.clearTimeout(timer.current);
+  }, [isOn, isFinished]);
 
   return (
     <div>
