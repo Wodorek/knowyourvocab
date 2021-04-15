@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 interface IProps {
-  onClick: React.MouseEventHandler;
+  onClick?: React.MouseEventHandler;
   type?: 'submit' | undefined;
 }
 

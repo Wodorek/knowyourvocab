@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import LoginScreen from './LoginScreen';
 
 interface IStudent {
   name: string;
@@ -23,6 +24,7 @@ const StLink = styled(Link)`
 
 const AdminPage = () => {
   const [students, setStudents] = useState<IStudent[]>();
+  const [loggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {
     const getStudentsData = async () => {
@@ -31,7 +33,9 @@ const AdminPage = () => {
           'http://localhost:3030/admin/getStudents',
           {
             method: 'GET',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+              'Content-Type': 'application/json',
+            },
           }
         );
 

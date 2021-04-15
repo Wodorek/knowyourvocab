@@ -38,11 +38,6 @@ const StInfo = styled.div`
 const StudentInfo: React.FC<IProps> = (props) => {
   const [studentInfo, setStudentInfo] = useState<IProps>();
 
-  // const percentages = useSelector(
-  //   (state: RootStateOrAny) => state.questions.percentages
-  // );
-  // const totals = useSelector((state: RootStateOrAny) => state.questions.totals);
-
   let { username } = useParams<any>();
 
   useEffect(() => {

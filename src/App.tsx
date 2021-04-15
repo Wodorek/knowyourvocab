@@ -3,6 +3,7 @@ import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import styled, { ThemeProvider } from 'styled-components';
 import theme from './common/themes/theme';
 import AdminPage from './features/AdminPage/AdminPage';
+import LoginScreen from './features/AdminPage/LoginScreen';
 import EndMessage from './features/EndMessage/EndMessage';
 import StudentInfo from './features/StudentInfo/StudentInfo';
 import TestPage from './features/TestPage/TestPage';
@@ -22,6 +23,7 @@ function App() {
       <BrowserRouter>
         <Container>
           <Switch>
+            <Route path="/login" component={LoginScreen} />
             <Route exact path="/admin" component={AdminPage} />
             <Route path="/admin/students/:username" component={StudentInfo} />
             <Route path="/endMessage" component={EndMessage} />
