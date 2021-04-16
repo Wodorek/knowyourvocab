@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
+import { getWithExpiry } from '../../common/util/getWithExpiry';
 import LoginScreen from './LoginScreen';
 
 interface IStudent {
@@ -26,7 +27,17 @@ const AdminPage = () => {
   const [students, setStudents] = useState<IStudent[]>();
   const [loggedIn, setLoggedIn] = useState(false);
 
+  const history = useHistory();
+
+  console.log(history);
+
   useEffect(() => {
+    const token = getWithExpiry('token');
+
+    if (!token) {
+      history.push('/login');
+      return;
+    }
     const getStudentsData = async () => {
       try {
         const response = await fetch(
@@ -35,6 +46,7 @@ const AdminPage = () => {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',
+              Authorization: 'Bearer ' + token,
             },
           }
         );
@@ -47,7 +59,7 @@ const AdminPage = () => {
       }
     };
     getStudentsData();
-  }, []);
+  }, [history]);
 
   let content;
   if (students) {

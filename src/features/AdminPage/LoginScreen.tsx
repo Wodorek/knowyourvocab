@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router';
 import styled from 'styled-components';
 import Button from '../../common/UIElements/Button';
+import { setWithExpiry } from '../../common/util/setWithExpiry';
+import ms from 'ms';
+import { getWithExpiry } from '../../common/util/getWithExpiry';
 
 interface IFromInput {
   username: string;
@@ -73,12 +76,24 @@ const LoginScreen = () => {
       if (!response.ok) {
         throw new Error(responseData.message);
       }
-      console.log(responseData);
+
+      const tokenExp = +ms(responseData.tokenExp);
+      console.log(tokenExp);
+
+      setWithExpiry('token', responseData.token, tokenExp);
+
       history.push('/admin');
     } catch (error) {
       console.log(error);
     }
   });
+
+  useEffect(() => {
+    //if token exists ie. user logged in in last 3 days, auto redirect to admin page
+    if (getWithExpiry('token')) {
+      history.push('/admin');
+    }
+  }, [history]);
 
   return (
     <StContainer>

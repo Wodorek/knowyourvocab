@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router';
+import { useHistory, useParams } from 'react-router';
 import styled from 'styled-components';
+import { getWithExpiry } from '../../common/util/getWithExpiry';
 import AnswersTable from '../AnswersTable/AnswersTable';
 import Header from '../Header/Header';
 import InformationBox from '../InformationBox/InformationBox';
@@ -37,18 +38,27 @@ const StInfo = styled.div`
 
 const StudentInfo: React.FC<IProps> = (props) => {
   const [studentInfo, setStudentInfo] = useState<IProps>();
+  const history = useHistory();
 
   let { username } = useParams<any>();
 
   useEffect(() => {
     const getOneStudent = async () => {
       try {
+        const token = getWithExpiry('token');
+
+        if (!token) {
+          history.push('/login');
+          return;
+        }
+
         const response = await fetch(
           `http://localhost:3030/admin/students/${username}`,
           {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',
+              Authorization: 'Bearer ' + token,
             },
           }
         );
@@ -60,7 +70,7 @@ const StudentInfo: React.FC<IProps> = (props) => {
       }
     };
     getOneStudent();
-  }, [username]);
+  }, [history, username]);
 
   let info;
   if (studentInfo) {
