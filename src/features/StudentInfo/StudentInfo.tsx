@@ -13,6 +13,7 @@ interface Answers {
   green: string[];
   blue: string[];
 }
+
 interface IProps {
   name: string;
   goodAnswers: Answers;
