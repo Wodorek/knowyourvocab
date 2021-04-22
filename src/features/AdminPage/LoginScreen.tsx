@@ -7,16 +7,13 @@ import { setWithExpiry } from '../../common/util/setWithExpiry';
 import ms from 'ms';
 import { getWithExpiry } from '../../common/util/getWithExpiry';
 
-interface IFromInput {
-  username: string;
-  password: string;
-}
+// interface IFromInput {
+//   username: string;
+//   password: string;
+// }
 
 const StContainer = styled.div`
-  height: 60vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  margin-top: 3rem;
 `;
 
 const StForm = styled.form`
@@ -34,16 +31,30 @@ const InputBox = styled.div`
   align-items: center;
 `;
 
-const StLabel = styled.label``;
+const StLabel = styled.label`
+  font-size: 1.5rem;
+`;
 
-const StInput = styled.input``;
+const StInput = styled.input`
+  font-size: 1.5rem;
+`;
+
+const StErrorMsg = styled.p`
+  color: red;
+`;
 
 const LoginScreen = () => {
-  const { register, handleSubmit, unregister } = useForm();
+  const {
+    register,
+    handleSubmit,
+    unregister,
+    formState: { errors },
+  } = useForm();
 
   const history = useHistory();
 
   const [isSignupMode, setIsSignupMode] = useState(false);
+  const [backError, setBackError] = useState('');
 
   const modeChangeHandler = (event: React.SyntheticEvent) => {
     event.preventDefault();
@@ -54,6 +65,7 @@ const LoginScreen = () => {
   };
 
   const submitHandler = handleSubmit(async (data) => {
+    setBackError('');
     const endpoint = isSignupMode ? 'signup' : 'login';
 
     const normalizedName = data.username.toLocaleLowerCase();
@@ -74,6 +86,7 @@ const LoginScreen = () => {
       const responseData = await response.json();
 
       if (!response.ok) {
+        console.log(responseData.status);
         throw new Error(responseData.message);
       }
 
@@ -84,9 +97,11 @@ const LoginScreen = () => {
 
       history.push('/admin');
     } catch (error) {
-      console.log(error);
+      setBackError(error.message);
     }
   });
+
+  console.log(errors);
 
   useEffect(() => {
     //if token exists ie. user logged in in last 3 days, auto redirect to admin page
@@ -101,13 +116,17 @@ const LoginScreen = () => {
         <InputBox>
           <StLabel htmlFor="username">Name</StLabel>
           <StInput type="text" {...register('username', { required: true })} />
+          {errors.username && <StErrorMsg>Please enter a username</StErrorMsg>}
         </InputBox>
         <InputBox>
           <StLabel htmlFor="password">Password</StLabel>
           <StInput
             type="password"
-            {...register('password', { required: true })}
+            {...register('password', { required: true, minLength: 8 })}
           />
+          {errors.password && (
+            <StErrorMsg>Password must be at least 8 characters long</StErrorMsg>
+          )}
         </InputBox>
         {isSignupMode ? (
           <InputBox>
@@ -118,8 +137,12 @@ const LoginScreen = () => {
             />
           </InputBox>
         ) : null}
+
         <Button type="submit">{isSignupMode ? 'Signup' : 'Login'}</Button>
-        <Button onClick={(e) => modeChangeHandler(e)}>Change mode</Button>
+        <Button onClick={(e) => modeChangeHandler(e)}>
+          Change to {isSignupMode ? 'login' : 'signup'}
+        </Button>
+        <StErrorMsg>{backError}</StErrorMsg>
       </StForm>
     </StContainer>
   );

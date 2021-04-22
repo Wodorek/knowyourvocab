@@ -5,8 +5,10 @@ import styled from 'styled-components';
 import Button from '../../common/UIElements/Button';
 import Diagnosis from '../diagnosis/Diagnosis';
 import { startTest } from '../diagnosis/diagnosisSlice';
+import Modal from '../Modal/Modal';
 
 const StContainer = styled.form`
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -21,6 +23,7 @@ const NameBox = styled.div`
 
 const TestPage = () => {
   const [name, setName] = useState('');
+  const [showModal, setShowModal] = useState(false);
   const isOn = useSelector((state: RootStateOrAny) => state.diagnosis.isOn);
   const isFinished = useSelector(
     (state: RootStateOrAny) => state.diagnosis.isFinished
@@ -40,6 +43,7 @@ const TestPage = () => {
   const sendDiagnosisHandler = async (event: React.SyntheticEvent) => {
     event.preventDefault();
     if (name === '') {
+      alert('Proszę się podpisać');
       return;
     }
     try {
@@ -60,13 +64,14 @@ const TestPage = () => {
 
   const startTestHandler = (event: React.SyntheticEvent) => {
     event.preventDefault();
+    setShowModal(false);
     dispatch(startTest());
   };
 
   return (
     <StContainer>
       <Diagnosis />
-
+      <Modal startQuiz={startTestHandler} show={showModal} />
       {isOn || isFinished ? (
         <>
           <NameBox>
@@ -85,7 +90,9 @@ const TestPage = () => {
           </Button>
         </>
       ) : (
-        <Button onClick={(event) => startTestHandler(event)}>Start</Button>
+        <Button type="button" onClick={() => setShowModal(true)}>
+          Instrukcja
+        </Button>
       )}
     </StContainer>
   );

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 interface IProps {
   onClick?: React.MouseEventHandler;
-  type?: 'submit' | undefined;
+  type?: 'submit' | undefined | 'button';
 }
 
 const StButton = styled.button`

@@ -110,7 +110,6 @@ const QuestionBox: React.FC<IProps> = (props) => {
     }
     window.clearTimeout(timer.current);
     event.preventDefault();
-    // validateQuestion((event.target as HTMLInputElement).value);
     if (!isFinished) {
       props.focusNext(props.name);
     }
@@ -127,7 +126,7 @@ const QuestionBox: React.FC<IProps> = (props) => {
         if (!isFinished) {
           props.focusNext(props.name);
         }
-      }, 100000000);
+      }, 7000);
     }
   };
 
@@ -162,6 +161,7 @@ const QuestionBox: React.FC<IProps> = (props) => {
             setValue((event.target as HTMLInputElement).value)
           }
           value={value}
+          id={props.name}
           name={props.name}
         />
       </StContainer>
