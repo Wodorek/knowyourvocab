@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { getWithExpiry } from '../../common/util/getWithExpiry';
-import LoginScreen from './LoginScreen';
+import { wakeUpApi } from '../../common/util/wakeUpApi';
 
 interface IStudent {
   name: string;
@@ -10,26 +10,44 @@ interface IStudent {
   dateSubmitted: Date;
 }
 
-const StContainer = styled.div`
-  margin: 2rem;
-  width: 60vw;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2rem;
+const StTable = styled.table`
+  margin: 3rem;
+  font-size: 2rem;
+  border: 2px solid black;
 `;
 
 const StLink = styled(Link)`
+  display: flex;
+  justify-content: center;
   text-decoration: none;
-  font-size: 2rem;
+  display: flex;
+  gap: 2rem;
+`;
+
+const StHead = styled.th`
+  text-align: center;
+  min-width: 12rem;
+  border: 2px solid black;
+  padding: 0.2rem;
+`;
+
+const StCell = styled.td`
+  text-align: center;
+  min-width: 12rem;
+  border: 2px solid black;
+  padding: 0.2rem;
+`;
+
+const StRow = styled.tr`
+  text-align: center;
+  min-width: 12rem;
+  border: 2px solid black;
 `;
 
 const AdminPage = () => {
   const [students, setStudents] = useState<IStudent[]>();
-  const [loggedIn, setLoggedIn] = useState(false);
 
   const history = useHistory();
-
-  console.log(history);
 
   useEffect(() => {
     const token = getWithExpiry('token');
@@ -41,7 +59,7 @@ const AdminPage = () => {
     const getStudentsData = async () => {
       try {
         const response = await fetch(
-          'http://localhost:3030/admin/getStudents',
+          `${process.env.REACT_APP_BACKEND}/admin/getStudents`,
           {
             method: 'GET',
             headers: {
@@ -65,19 +83,35 @@ const AdminPage = () => {
   if (students) {
     content = students.map((el) => {
       const date = new Date(el.dateSubmitted);
-
       const displayDate = date.toLocaleDateString();
-      const time = date.toLocaleTimeString();
+      const displayTime = date.toLocaleTimeString();
 
       return (
-        <StLink key={el._id} to={`/admin/students/${el.name}`}>
-          {el.name}: {displayDate} {time}
-        </StLink>
+        <StRow key={el.name + displayTime}>
+          <StCell>
+            <StLink to={`/admin/students/${el.name}`}>{el.name}</StLink>
+          </StCell>
+          <StCell>{displayDate}</StCell>
+          <StCell>{displayTime}</StCell>
+        </StRow>
       );
     });
   }
 
-  return <StContainer>{content}</StContainer>;
+  return (
+    <div>
+      <StTable>
+        <tbody>
+          <StRow>
+            <StHead>Name</StHead>
+            <StHead>Date</StHead>
+            <StHead>Time</StHead>
+          </StRow>
+          {content}
+        </tbody>
+      </StTable>
+    </div>
+  );
 };
 
 export default AdminPage;

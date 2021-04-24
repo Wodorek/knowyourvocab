@@ -1,5 +1,5 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import diagnosisReducer from '../features/diagnosis/diagnosisSlice';
+import diagnosisReducer from '../features/Diagnosis/diagnosisSlice';
 import questionsReducer from '../features/QuestionBox/questionsSlice';
 import answersReducer from '../features/AnswersTable/answersSlice';
 

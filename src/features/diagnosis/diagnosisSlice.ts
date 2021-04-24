@@ -1,10 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+import { settings } from '../../common/settings';
+
 export const diagnosisSlice = createSlice({
   name: 'diagnosis',
   initialState: {
     totalFinished: 0,
-    totalIncorrect: 0,
+    incorrectTotal: 0,
     incorrectInARow: 0,
     isOn: false,
     isFinished: false,
@@ -16,17 +18,17 @@ export const diagnosisSlice = createSlice({
     },
     addIncorrect: (state) => {
       state.totalFinished++;
-      state.totalIncorrect++;
+      state.incorrectTotal++;
       state.incorrectInARow++;
-      if (state.incorrectInARow === 10) {
+      if (state.incorrectInARow === settings.incorrectInARow) {
         state.isOn = false;
         state.isFinished = true;
       }
-      if (state.totalIncorrect === 30) {
+      if (state.incorrectTotal === settings.incorrectTotal) {
         state.isOn = false;
         state.isFinished = true;
       }
-      if (state.totalFinished === 100) {
+      if (state.totalFinished === settings.totalQuestions) {
         state.isOn = false;
       }
     },

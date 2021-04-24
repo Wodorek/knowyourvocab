@@ -1,4 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { blueLvl } from '../../common/Lvls/blueLvl';
+import { greenLvl } from '../../common/Lvls/greenLvl';
+import { yellowLvl } from '../../common/Lvls/yellowLvl';
+import { orangeLvl } from '../../common/Lvls/orangeLvl';
 
 const wordsInLvl = {
   yellow: 1300,
@@ -6,11 +10,12 @@ const wordsInLvl = {
   green: 3000,
   blue: 4000,
 };
+
 const questionsInLvl = {
-  yellow: 30,
-  orange: 25,
-  green: 25,
-  blue: 20,
+  yellow: yellowLvl.length,
+  orange: orangeLvl.length,
+  green: greenLvl.length,
+  blue: blueLvl.length,
 };
 
 export const answersSlice = createSlice({

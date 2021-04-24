@@ -13,7 +13,7 @@ const StHeader = styled.h1`
   border: solid 2px black;
   margin: 0;
   font-size: 1rem;
-  @media (max-width: 974px) {
+  @media (max-width: 976px) {
     width: calc(40rem + 6px);
   }
 `;

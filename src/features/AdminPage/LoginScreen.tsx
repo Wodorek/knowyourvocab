@@ -7,11 +7,6 @@ import { setWithExpiry } from '../../common/util/setWithExpiry';
 import ms from 'ms';
 import { getWithExpiry } from '../../common/util/getWithExpiry';
 
-// interface IFromInput {
-//   username: string;
-//   password: string;
-// }
-
 const StContainer = styled.div`
   margin-top: 3rem;
 `;
@@ -71,17 +66,20 @@ const LoginScreen = () => {
     const normalizedName = data.username.toLocaleLowerCase();
 
     try {
-      const response = await fetch(`http://localhost:3030/auth/${endpoint}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          username: normalizedName,
-          password: data.password,
-          verificationString: data.verificationString,
-        }),
-      });
+      const response = await fetch(
+        `${process.env.REACT_APP_BACKEND}/auth/${endpoint}`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            username: normalizedName,
+            password: data.password,
+            verificationString: data.verificationString,
+          }),
+        }
+      );
 
       const responseData = await response.json();
 
@@ -100,8 +98,6 @@ const LoginScreen = () => {
       setBackError(error.message);
     }
   });
-
-  console.log(errors);
 
   useEffect(() => {
     //if token exists ie. user logged in in last 3 days, auto redirect to admin page

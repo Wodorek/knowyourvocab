@@ -32,23 +32,16 @@ const QuestionsSheet = () => {
   };
 
   const getNextElement = (idx: number): HTMLInputElement | null => {
-    // if (idx === null) {
-    //   console.log('tso');
-    // }
-    //if all questions are done and disabled, return null
     if (totalFinished > focusRefs.current.length - 2) {
       return null;
     }
 
     const nextItem = focusRefs.current[idx];
 
-    //if we are at the last element in focus refs, go back to start
     if (nextItem === undefined) {
       return getNextElement(0);
     }
 
-    //if the input is disabled, try focusing on the next one
-    //this one seems to be the source of the infinite loop
     if (nextItem.disabled && isOn) {
       return getNextElement(idx + 1);
     }
@@ -57,15 +50,12 @@ const QuestionsSheet = () => {
   };
 
   const focusInput = (name: string) => {
-    //find current element index
     const foundElIdx = focusRefs.current.findIndex((el: HTMLInputElement) => {
       return el.name === name;
     });
 
-    //get next element
     const nextElement = getNextElement(foundElIdx + 1);
 
-    //TS check
     if (nextElement === null) {
       return;
     }
@@ -79,6 +69,7 @@ const QuestionsSheet = () => {
     }
   }, [isOn]);
 
+  //this is dumb
   const colors = [
     { name: '', color: '' },
     { name: 'yellow', color: theme.yellow },

@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import styled from 'styled-components';
 import Button from '../../common/UIElements/Button';
-import Diagnosis from '../diagnosis/Diagnosis';
-import { startTest } from '../diagnosis/diagnosisSlice';
+import { wakeUpApi } from '../../common/util/wakeUpApi';
+import Diagnosis from '../Diagnosis/Diagnosis';
+import { startTest } from '../Diagnosis/diagnosisSlice';
 import Modal from '../Modal/Modal';
 
 const StContainer = styled.form`
@@ -47,7 +48,7 @@ const TestPage = () => {
       return;
     }
     try {
-      await fetch('http://localhost:3030/students/postDiagnosis', {
+      await fetch(`${process.env.REACT_APP_BACKEND}/students/postDiagnosis`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -67,6 +68,10 @@ const TestPage = () => {
     setShowModal(false);
     dispatch(startTest());
   };
+
+  useEffect(() => {
+    wakeUpApi();
+  }, []);
 
   return (
     <StContainer>

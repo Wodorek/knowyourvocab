@@ -46,26 +46,29 @@ const StHeading = styled.h1`
 const StMessage = styled.p``;
 
 const Modal: React.FC<IProps> = (props) => {
+  //TODO write real instructions
   return (
     <StContainer show={props.show}>
       <StMessageBox>
         <StHeading>Instrukcja</StHeading>
         <StMessage>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos
-          officiis consectetur eveniet quos, error libero eius recusandae harum
-          aliquam minus, cum facilis culpa dolores repellendus impedit,
-          voluptates atque cumque dolorum? Lorem ipsum dolor sit, amet
-          consectetur adipisicing elit. Molestiae, corporis ipsam adipisci
-          debitis illo nemo doloribus voluptate? Ratione earum quidem cupiditate
-          aspernatur maxime modi perferendis! Iusto eligendi adipisci harum
-          aliquam. Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-          Similique suscipit asperiores pariatur labore voluptas quod odio
-          tempora corporis numquam ducimus maxime, est repellat quibusdam eaque
-          tempore, voluptatibus nobis, recusandae doloremque? Lorem ipsum, dolor
-          sit amet consectetur adipisicing elit. Illum, consequuntur inventore
-          debitis perferendis cumque beatae neque doloribus veritatis voluptate.
-          Aperiam earum, eos perferendis voluptate harum possimus quam
-          cupiditate expedita fugit.
+          Przed Tobą diagnoza! <br /> Po jej rozwiązaniu dowiesz się ile słów
+          znasz w języku angielskim 😊
+          <br />
+          <br />
+          Jak postępować? Przetłumacz polskie słowa na język angielski, swoją
+          odpowiedź wpisz w polu, w którym znajduje się kursor. Kiedy będziesz
+          gotowa/gotowy na kolejne pytanie, naciśnij „enter”. Na każdą odpowiedź
+          masz 10 sekund. Po upływie tego czasu program automatycznie pokaże
+          poprawną odpowiedź i przekieruje Cię do kolejnego słowa, tj.
+          następnego pola na prawo. W tej kolejności należy rozwiązać test. Nie
+          omijaj pytań, klikając w dowolne pole.
+          <br /> Po 20 błędnych odpowiedziach/braku odpowiedzi pod rząd, test
+          zostanie automatycznie przerwany.
+          <br />
+          Wynik testu i wszelkie pytania omówisz z nauczycielem na lekcji 😊
+          <br />
+          Powodzenia!
         </StMessage>
         <Button type="button" onClick={(event) => props.startQuiz(event)}>
           Start

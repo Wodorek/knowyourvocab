@@ -10,9 +10,10 @@ const StContainer = styled.div`
 `;
 
 const EndMessage = () => {
+  //TODO real end message
   return (
     <StContainer>
-      <h1>No i dzięki za to wypełnienie</h1>
+      <h1>Dziękuję za wypełnienie testu, do zobaczenia na lekcji 😊</h1>
     </StContainer>
   );
 };

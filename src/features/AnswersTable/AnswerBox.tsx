@@ -37,10 +37,11 @@ const StQuestion = styled.div`
   user-select: none;
 `;
 
-const StAnswer = styled.div`
+const StAnswer = styled.div<{ ok: boolean | null }>`
   padding: 0;
   text-align: center;
   font-size: inherit;
+
   border: none;
   border-bottom: solid 2px black;
   border-right: solid 2px black;

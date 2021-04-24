@@ -34,7 +34,10 @@ const StContainer = styled.div`
 
 const StInfo = styled.div`
   display: flex;
+  flex-wrap: wrap;
   gap: 2rem;
+  margin-top: 2rem;
+  justify-content: center;
 `;
 
 const StudentInfo: React.FC<IProps> = (props) => {
@@ -54,7 +57,7 @@ const StudentInfo: React.FC<IProps> = (props) => {
         }
 
         const response = await fetch(
-          `http://localhost:3030/admin/students/${username}`,
+          `${process.env.REACT_APP_BACKEND}/admin/students/${username}`,
           {
             method: 'GET',
             headers: {

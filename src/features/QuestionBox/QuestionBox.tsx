@@ -3,7 +3,7 @@ import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 import { questionCorrect, questionIncorrect } from './questionsSlice';
-import { addCorrect, addIncorrect } from '../diagnosis/diagnosisSlice';
+import { addCorrect, addIncorrect } from '../Diagnosis/diagnosisSlice';
 
 interface IProps {
   name: string;
@@ -25,7 +25,7 @@ const StContainer = styled.div`
   display: flex;
 `;
 
-const StInput = styled.input`
+const StInput = styled.input<{ ok: boolean | null }>`
   padding: 0;
   text-align: center;
   font-size: inherit;
@@ -76,7 +76,7 @@ const QuestionBox: React.FC<IProps> = (props) => {
 
   const preventPaste = (event: React.SyntheticEvent) => {
     event.preventDefault();
-    alert('ale proszę nie oszukiwać :|');
+    alert('Proszę nie wklejać z tłumacza :)');
   };
 
   const validateQuestion = (inputValue: string) => {
@@ -126,7 +126,7 @@ const QuestionBox: React.FC<IProps> = (props) => {
         if (!isFinished) {
           props.focusNext(props.name);
         }
-      }, 7000);
+      }, 10000);
     }
   };
 
