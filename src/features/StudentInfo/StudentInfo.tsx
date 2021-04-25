@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router';
 import styled from 'styled-components';
+import LoadingScreen from '../../common/UIElements/LoadingScreen';
 import { getWithExpiry } from '../../common/util/getWithExpiry';
 import AnswersTable from '../AnswersTable/AnswersTable';
 import Header from '../Header/Header';
@@ -42,11 +43,13 @@ const StInfo = styled.div`
 
 const StudentInfo: React.FC<IProps> = (props) => {
   const [studentInfo, setStudentInfo] = useState<IProps>();
+  const [isLoading, setIsLoading] = useState(false);
   const history = useHistory();
 
   let { username } = useParams<any>();
 
   useEffect(() => {
+    setIsLoading(true);
     const getOneStudent = async () => {
       try {
         const token = getWithExpiry('token');
@@ -72,6 +75,7 @@ const StudentInfo: React.FC<IProps> = (props) => {
       } catch (error) {
         return new Error(error);
       }
+      setIsLoading(false);
     };
     getOneStudent();
   }, [history, username]);
@@ -83,7 +87,9 @@ const StudentInfo: React.FC<IProps> = (props) => {
     });
   }
 
-  return (
+  return isLoading ? (
+    <LoadingScreen message="Getting test results, please wait" />
+  ) : (
     <StContainer>
       <Header heading={`WYNIKI ${username}`} />
       {studentInfo && (

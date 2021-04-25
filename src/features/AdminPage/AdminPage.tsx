@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
+import LoadingScreen from '../../common/UIElements/LoadingScreen';
 import { getWithExpiry } from '../../common/util/getWithExpiry';
-import { wakeUpApi } from '../../common/util/wakeUpApi';
 
 interface IStudent {
   name: string;
@@ -46,6 +46,7 @@ const StRow = styled.tr`
 
 const AdminPage = () => {
   const [students, setStudents] = useState<IStudent[]>();
+  const [isLoading, setIsLoading] = useState(false);
 
   const history = useHistory();
 
@@ -56,6 +57,7 @@ const AdminPage = () => {
       history.push('/login');
       return;
     }
+    setIsLoading(true);
     const getStudentsData = async () => {
       try {
         const response = await fetch(
@@ -75,7 +77,9 @@ const AdminPage = () => {
       } catch (error) {
         throw new Error(error);
       }
+      setIsLoading(false);
     };
+
     getStudentsData();
   }, [history]);
 
@@ -98,7 +102,9 @@ const AdminPage = () => {
     });
   }
 
-  return (
+  return isLoading ? (
+    <LoadingScreen message="Getting students list, please wait" />
+  ) : (
     <div>
       <StTable>
         <tbody>

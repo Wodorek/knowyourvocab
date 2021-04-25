@@ -18,6 +18,7 @@ const StContainer = styled.div`
   margin: 0;
   height: 1rem;
   display: flex;
+  cursor: pointer;
 `;
 
 const StQuestion = styled.div`
