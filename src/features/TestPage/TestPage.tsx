@@ -14,7 +14,6 @@ const StContainer = styled.form`
   flex-direction: column;
   align-items: center;
   gap: 2rem;
-  margin-bottom: 3rem;
 `;
 
 const NameBox = styled.div`
@@ -92,12 +91,12 @@ const TestPage = () => {
               value={name}
             />
           </NameBox>
-          <Button onClick={(event) => sendDiagnosisHandler(event)}>
+          <Button margin={2.5} onClick={(event) => sendDiagnosisHandler(event)}>
             Wyślij
           </Button>
         </>
       ) : (
-        <Button type="button" onClick={() => setShowModal(true)}>
+        <Button margin={2.5} type="button" onClick={() => setShowModal(true)}>
           Instrukcja
         </Button>
       )}
