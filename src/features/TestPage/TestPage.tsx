@@ -13,6 +13,7 @@ const StContainer = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: 100%;
   gap: 2rem;
 `;
 
