@@ -21,7 +21,8 @@ const StContainer = styled.div<{ show: boolean }>`
   position: absolute;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
+  height: 100%;
   width: 100vw;
   background-color: rgba(0, 0, 0, 0.55);
 `;
