@@ -84,12 +84,10 @@ const LoginScreen = () => {
       const responseData = await response.json();
 
       if (!response.ok) {
-        console.log(responseData.status);
         throw new Error(responseData.message);
       }
 
       const tokenExp = +ms(responseData.tokenExp);
-      console.log(tokenExp);
 
       setWithExpiry('token', responseData.token, tokenExp);
 
