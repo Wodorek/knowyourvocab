@@ -12,7 +12,7 @@ export const orangeLvl = [
   ['ilość', ['quantity', 'amount']],
   ['pewien (określony)', ['certain']],
   ['doręczać', ['deliver']],
-  ['gołąb', ['pidgeon']],
+  ['gołąb', ['pigeon']],
   ['nowoczesny', ['modern']],
   ['stosować', ['apply', 'use']],
   ['mąka', ['flour']],

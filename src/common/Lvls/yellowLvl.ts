@@ -5,7 +5,7 @@ export const yellowLvl = [
   ['potrzebować', ['need']],
   ['biżuteria', ['jewelry', 'jewellery']],
   ['biedny', ['poor']],
-  ['rozmawiać', ['talk']],
+  ['rozmawiać', ['talk', 'speak']],
   ['sok', ['juice']],
   [
     'wspaniały',
