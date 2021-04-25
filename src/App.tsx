@@ -22,8 +22,8 @@ const Container = styled.div`
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <BrowserRouter>
-        <Suspense fallback={<LoadingScreen message="Loading, please wait" />}>
+      <Suspense fallback={<LoadingScreen message="Loading, please wait" />}>
+        <BrowserRouter>
           <Container>
             <Switch>
               <Route path="/login" component={LoginScreen} />
@@ -34,8 +34,8 @@ function App() {
               <Redirect to="/" />
             </Switch>
           </Container>
-        </Suspense>
-      </BrowserRouter>
+        </BrowserRouter>
+      </Suspense>
     </ThemeProvider>
   );
 }
