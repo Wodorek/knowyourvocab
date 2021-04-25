@@ -14,6 +14,7 @@ const StContainer = styled.form`
   flex-direction: column;
   align-items: center;
   gap: 2rem;
+  margin-bottom: 3rem;
 `;
 
 const NameBox = styled.div`
