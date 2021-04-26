@@ -16,7 +16,7 @@ A vocabulary assesment test I created to help my teacher girlfriend with the tra
 
 The test portion of this website is meant to mimick the paper version of the evaluation, both the looks and function. Questions are on a short timer, and are divided into progressively harder levels. Upon completing every questions, or making a set number of mistakes, the student signs his or hers initials, and sends the test for teacher to take a look at.
 
-The admin portion is available to approved teachers only. There they can check how well the student did on each seperate level, and on the test as a whole, as well as see an estimate about a vocabulary size, and suggested study level for said student.
+The admin portion of this website is available to approved teachers only. There they can check how well the student did on each seperate level, and on the test as a whole, as well as see an estimate about a vocabulary size, and suggested study level for said student.
 
 ## Technologies used
 
