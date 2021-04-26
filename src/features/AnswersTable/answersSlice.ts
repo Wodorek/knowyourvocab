@@ -63,7 +63,7 @@ export const answersSlice = createSlice({
     },
     setInitialValues: (state, action) => {
       state.answers = action.payload;
-
+      state.totals.total = 0;
       //not very DRY, but dispatching and action within a reducer is a bad thing to do
       Object.keys(action.payload).forEach((key: any) => {
         const idx: keyof typeof state.percentage = key;

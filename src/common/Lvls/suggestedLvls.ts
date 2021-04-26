@@ -6,4 +6,5 @@ export const suggestedLvls = {
   4000: 'B1(powtórka pomarańczowy)',
   8000: 'B2',
   10000: 'C1',
+  12000: 'C2',
 };
