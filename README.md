@@ -36,4 +36,4 @@ $npm install
 $npm start
 ```
 
-You will also need the backend part of the app: [knowyourvocab-back](https://github.com/Wodorek/knowyourvocab-back), and a .env file with **REACT_APP_BACKEND** variable, pointing to the backend URL.
+To be able to acces the admin part of the website, you will also need the backend part of the app: [knowyourvocab-back](https://github.com/Wodorek/knowyourvocab-back), and a .env file with **REACT_APP_BACKEND** variable, pointing to the backend URL.
