@@ -108,6 +108,15 @@ const QuestionBox: React.FC<IProps> = (props) => {
     if (event.key !== 'Enter') {
       return;
     }
+
+    //that should prevent the rare case of somebody pressing enter just after the timer expires, failing the next quesiton in line
+    if (value.length <= 2) {
+      event.preventDefault();
+      return;
+    }
+
+    console.log(event);
+
     window.clearTimeout(timer.current);
     event.preventDefault();
     if (!isFinished) {
