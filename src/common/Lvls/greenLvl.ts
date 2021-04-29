@@ -29,7 +29,7 @@ export const greenLvl = [
   ['gęstość', ['density', 'thickness']],
   ['odrzucać (ofertę)', ['reject', 'turn down']],
   ['bocian', ['stork']],
-  ['pielęgnować', ['nurture', 'care', 'nurse']],
+  ['pielęgnować', ['nurture', 'take care', 'nurse']],
   ['kołyska', ['crib', 'cradle']],
   ['wyróżniać się', ['stand out', 'distinguish oneself']],
   ['obojczyk', ['collarbone', 'collar bone', 'clavicle']],
