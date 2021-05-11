@@ -115,8 +115,6 @@ const QuestionBox: React.FC<IProps> = (props) => {
       return;
     }
 
-    console.log(event);
-
     window.clearTimeout(timer.current);
     event.preventDefault();
     if (!isFinished) {
