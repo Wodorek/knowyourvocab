@@ -29,12 +29,13 @@ const StInput = styled.input<{ ok: boolean | null }>`
   padding: 0;
   text-align: center;
   font-size: inherit;
+  color: black;
   border: none;
   border-bottom: solid 2px black;
   border-right: solid 2px black;
   height: inherit;
   width: 10rem;
-  background: ${(props) => {
+  background-color: ${(props) => {
     if (props.disabled === true && props.ok === true) {
       return 'Chartreuse';
     }
@@ -49,6 +50,9 @@ const StInput = styled.input<{ ok: boolean | null }>`
     }
   }};
   cursor: ${(props) => (props.disabled ? 'not-allowed' : 'auto')};
+  :focus {
+    background-color: lightsteelblue;
+  }
 `;
 
 const StLabel = styled.label`
