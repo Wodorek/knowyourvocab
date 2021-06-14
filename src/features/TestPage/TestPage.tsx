@@ -71,7 +71,7 @@ const TestPage = () => {
   };
 
   useEffect(() => {
-    //wake up sleeping api when a studen opens up the page. I think this is a better solution than making a studen wait 10 second on sending the complete test.
+    //wake up sleeping api when a student opens up the page. I think this is a better solution than making a student wait 10 second on sending the complete test.
     wakeUpApi();
   }, []);
 
